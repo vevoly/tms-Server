@@ -10,8 +10,14 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "jade": "~1.11.0",
-    "morgan": "~1.8.1",
-    "serve-favicon": "~2.4.2"
+    "morgan": "~1.8.1"
   },
-  "author": "vevoly"
+  "author": "vevoly",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-develop-server": "^0.5.2",
+    "gulp-notify": "^3.0.0",
+    "run-sequence": "^2.1.0"
+  }
 }

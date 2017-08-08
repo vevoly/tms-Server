@@ -7,7 +7,7 @@
   router = express.Router();
 
   router.get('/faq', function(req, res, next) {
-    return res.send('I\'m fine');
+    return res.send('I\'m fine, tank you. .');
   });
 
   module.exports = router;

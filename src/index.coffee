@@ -1,20 +1,12 @@
 #!/usr/bin/env node
 
 # Module dependencies.
-app = require('../app')
-debug = require('debug')('src:server')
+app = require('./libs/app')
+config = require('./config/config')
 http = require('http')
 
-# Normalize a port into a number, string, or false.
-normalizePort = (val) ->
-  port = parseInt(val, 10)
-  if isNaN(port)
-    return val
-  if port > 0
-    return port
-  false
+port = config.port
 
-port = normalizePort(process.env.PORT || '3000')
 app.set('port', port)
 # Create HTTP server.
 server = http.createServer(app)
@@ -42,4 +34,6 @@ onListening = (server) ->
 
 server.on('error', onError)
 #server.on('listening', onListening)
-server.listen(port)
+server.listen(port, ->
+  console.log("start listening port ...")
+)

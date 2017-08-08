@@ -3,7 +3,7 @@ path = require('path')
 logger = require('morgan')
 bodyParser = require('body-parser')
 
-apiRouters = require('./routes/api')
+apiRouters = require('../routes/api')
 
 
 app = express()
