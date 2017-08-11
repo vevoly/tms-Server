@@ -13,11 +13,11 @@ test = (req, res, next) ->
 # 验证用户是否存在
 validUserExists = (req, res, next) ->
     body = req.body
-    return next('请提交注册信息') if not body or not body.username or not body.password
+    return next(new Error('请提交注册信息')) if not body or not body.username or not body.password
     db.users.findOne({username: body.username}, (err, user) ->
         return next(err) if err
         if user
-           return next('用户已注册，无法再次注册！')
+           return next(new Error('用户已注册，无法再次注册！'))
         next()
     )
 
@@ -41,20 +41,22 @@ register = (req, res, next) ->
 # 登录
 login = (req, res, next) ->
     body = req.body
-    return res.send('请输入账号和密码！') if !body
+    #console.log(new Error('请输入账号和密码！'))
+    return res.send(new Error('请输入账号和密码！')) if !body
     username = body.username
     password = body.password
+    console.log('username = ' + username + ', password = ' + pa)
     token = jwt.sign({username: username}, config.secret)
     expiredTime = Date.now() + 1000 * 60 * 60 * 24
-    console.log('token = ' + token)
+    #console.log('token = ' + token)
     # 查记录
     db.users.findOne({username: username, password: password}, (err, user) ->
         return res.send(err) if err
-        return res.send('无此用户，登陆失败，请重试！') if !user
+        return res.send(new Error('无此用户，登陆失败，请重试！')) if !user
 
         db.users.update({_id:user._id}, {$set: {token:token, expiredTime: expiredTime}}, (err, numReplaced) ->
             return res.send(err) if err
-            return res.send('登录失败，请重试！') if numReplaced is 0
+            return res.send(new Error('登录失败，请重试！')) if numReplaced is 0
         )
         res.json({token:token})
     )

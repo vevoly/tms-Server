@@ -2,6 +2,8 @@ express = require('express')
 path = require('path')
 logger = require('morgan')
 bodyParser = require('body-parser')
+# 引入cors 处理跨域问题
+cors = require('cors')
 
 # 引入路由
 apiRouters = require('./../routes/api')
@@ -15,6 +17,8 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+# 支持跨域
+app.use(cors())
 app.use('/api', apiRouters)
 app.use('/api', userRouters)
 app.use('/api', taskRouters)
@@ -33,8 +37,7 @@ app.use((req, res, next) ->
 # will print stacktrace
 if app.get('env') is 'development'
   app.use((err, req, res, next) ->
-    res.status(err.status || 500)
-    res.render('error', {
+    res.render(err.status || 500, {
       message: err.message
       error: err
     })
