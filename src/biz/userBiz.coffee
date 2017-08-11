@@ -45,7 +45,7 @@ login = (req, res, next) ->
     return res.send(new Error('请输入账号和密码！')) if !body
     username = body.username
     password = body.password
-    console.log('username = ' + username + ', password = ' + pa)
+    console.log('username = ' + username + ', password = ' + password)
     token = jwt.sign({username: username}, config.secret)
     expiredTime = Date.now() + 1000 * 60 * 60 * 24
     #console.log('token = ' + token)

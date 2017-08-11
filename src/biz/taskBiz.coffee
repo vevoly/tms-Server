@@ -10,7 +10,7 @@ addTask = (req, res, next) ->
         creator: 'admin'
         creatorDate: Date.now()
         updateDate: Date.now()
-        status: '未完成'
+        status: 'InProgress'
         deleted: false
     }
 
