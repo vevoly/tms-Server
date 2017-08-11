@@ -17,7 +17,7 @@ gulp.task('clean', (callback) ->
 
 # 复制文件
 gulp.task('copyFile', ->
-    gulp.src('./src/**/*.js')
+    gulp.src(['./src/**/*.js', './src/database*/*.db'])
     .pipe(gulp.dest('./dist/'))
 )
 
